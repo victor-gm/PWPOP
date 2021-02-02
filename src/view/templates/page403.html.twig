@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+   PwPop - Oh no!
+{% endblock %}
+{% block content %}
+   <div class="row">
+      <div class="col-6 offset-3 mt6">
+         <img src="{{base_url}}/assets/img/err403.png"></img>
+      </div>
+      <div class="col-6 offset-3 text-center">
+      <p class="mt3">Seems like you don't have access to see this page, do you want to go back to the homepage?</p>
+      <a class="btn btn-primary" href="/">Yes! Take me back please</a>
+      </div>
+   </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    PwPop - Homepage
+{% endblock %}
+
+{% block content %}
+   {% if registerSuccess is defined and registerSuccess != null %}
+      <input id="registerSuccessful" type="hidden" value="1">
+   {% endif %}
+   {% if buySuccess is defined and buySuccess != null %}
+         <div class="alert alert-success custom-alert mt10 alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">×</span>
+            </button>
+            {{ buySuccess|join(',')}}
+         </div>
+   {% endif %}
+   {% if errors is defined and errors != null %}
+      <input id="registerErrors" type="hidden" value="1">
+   {% endif %}
+    {% if errorslogin is defined and errorslogin != null %}
+      <input id="loginErrors" type="hidden" value="1">
+   {% endif %}
+   <div class="pt3 pb3">
+      {% if withFilters %}
+         <h1 class="ml4 font-weight-bold">Search Results:
+            <a class="btn btn-primary text-right float-right mr6" href="/">Clear Filters</a>
+         </h1>
+      {% else %}
+         <h1 class="ml4 font-weight-bold">Recent Products:</h1>
+      {% endif %}
+      {% if products|length > 0 %}
+         <div class="row row-eq-height w-90p ml-auto mr-auto" id="homepage-products">
+            {% for product in products %}
+               {%if product.sold_out == 0%}
+                  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt3 mb3">
+                  <div class="card h-100p center">
+                     <a class="text-center h-200 flex" href="/product/{{product.id}}">
+                        <img class="img-item img-thumbnail" src="{{ base_url() }}/uploads/{{ product.image }}" alt="{{ product.title }}">
+                     </a>
+                     <div class="card-body">
+                        <h4 class="font-weight-bold">{{ product.price }} €
+                        </h4>
+                        <span class="card-title">
+                           {{product.title}}
+                        </span>
+                        <p class="card-text">
+                           {{ product.description }}</p>
+                        {% if session is defined %}                           
+                           <a class="btn btn-primary" href="/buy/{{product.id}}">Buy Product</a>
+                           <a class="ml4" onclick="setFavorite({{product.id}})" id="fav{{product.id}}">
+                           {% if product.favorite == true %}
+                              <img src="{{ base_url() }}/assets/img/heartfilled.svg" alt="Make product favorite">
+                           {% else %}
+                              <img src="{{ base_url() }}/assets/img/heart.svg" alt="Make product favorite">
+                           {% endif %}
+                           </a>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+               {% endif %}
+            {% endfor %}
+         </div>
+      {% else %}
+         <div class="text-center">
+            <img src="{{ base_url() }}/assets/img/emptystateProducts.png" alt="No products available">
+            <h4 class="mt4 font-weight-bold">There's no products to show</h4>
+            <p class="mb0">Try coming back later to see if there's new products available!</p>
+         </div>
+      {% endif %}
+      {% if totalProducts > 5 and products|length > 0 %}
+         <div class="row">
+            <div class="col-12 text-center mt4 mb4">
+               <button class="btn btn-primary" id="loadMoreBtn" onclick="loadMoreProducts({{loggedUser.id}})">Load More...</button>
+               <input id="offsetProducts" type="hidden" value={{offset}}>
+            </div>
+         </div>
+      {% endif %}
+   </div>
+{% endblock %}

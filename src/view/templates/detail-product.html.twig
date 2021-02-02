@@ -1,0 +1,154 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+   PwPop - Detail product!
+{% endblock %}
+
+{% block content %}
+   {% if FlashMsgs is defined and FlashMsgs != null %}
+      {% for msg in FlashMsgs %}
+         <div class="alert alert-danger custom-alert" role="alert">
+            {{ msg|join(',')}}
+         </div>
+      {% endfor %}
+   {% endif %}
+   <div class="p50">
+      <div class="card upload-card w-90p ml-auto mr-auto">
+         <form action="{{ path_for('editProduct', {'id': product.id}) }}" 
+            name="edit_detail_form" enctype="multipart/form-data" method="POST" 
+            onsubmit="return validateEdit(this)">
+            <div class="controls">
+               <div class="row">
+                  <div class="col-12">
+                     <h1 class="card-title">Product Overview
+                        {% if product.favorite == true %}
+                           <a class="fr mt10" onclick="setFavorite({{product.id}})" id="fav{{product.id}}">
+                              <img src="{{ base_url() }}/assets/img/heartfilled.svg" alt="Make product favorite">
+                           </a>
+                        {% else %}
+                           <a class="fr mt10" onclick="setFavorite({{product.id}})" id="fav{{product.id}}">
+                              <img src="{{ base_url() }}/assets/img/heart.svg" alt="Make product favorite">
+                           </a>
+                        {% endif %}
+                     </h1>
+                  </div>
+               </div>
+               <hr>
+               <div class="row">
+                  <div class="col-12 col-sm-6">
+                     <div class="form-group">
+                        <label for="form_title">Title</label>
+                        {% if not buyer %}
+                           <input id="form_title" type="text" name="title" class="form-control" placeholder="Write a nice title!" data-error="Title is required." value="{{ product.title }}" disabled>
+                        {% else %}
+                           <p>{{ product.title }}</p>
+                        {% endif %}
+                        <div class="invalid-feedback">Please provide a title.</div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                     <div class="form-group">
+                        <label for="form_price">Price
+                        </label>
+                        {% if not buyer %}
+                           <div class="input-group input-group-seamless">
+                              <span class="input-group-prepend">
+                                 <span class="input-group-text">€</span>
+                              </span>
+                              <input id="form_price" type="number" min="0" name="price" 
+                                 class="form-control" placeholder="How much is worth?" step="0.1"
+                                 data-error="Price is required." value="{{ product.price }}" disabled>
+                              <div class="invalid-feedback">Please provide a valid price.</div>
+                           </div>
+                        {% else %}
+                           <p>€
+                              {{ product.price }}</p>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-12 col-sm-12 col-md-6 pb3">
+                     <div class="form-group">
+                        <label for="form_cat">Category
+                        </label>
+                        {% if not buyer %}
+                           <select class="form-control" disabled id="form_cat" name="cat">
+                              <option value="0">Where is does it fit?</option>
+                              {% for category in categories %}
+                                 <option value="{{ category.id }}" {% if product.cat == category.id or product.category_id == category.id %} selected {% endif %}>
+                                    {{ category.name }}
+                                 </option>
+                              {% endfor %}
+                           </select>
+                        {% else %}
+                           <p>
+                              {% for category in categories %}
+                                 {{ product.category_id == category.id ? category.name}}
+                              {% endfor %}
+                           </p>
+                        {% endif %}
+                        <div class="invalid-feedback">Please provide a valid category.</div>
+                     </div>
+                     {% if not buyer %}
+                     <label>Product images:</label>
+                     <div class="mt2 img-carousel w-90p ml-auto mr-auto">
+                        {% for image in product.images %}
+                           <div class="flex h-160 pl2 pr2">
+                              <img src="{{ base_url() }}/uploads/{{image}}" alt="image of product">
+                           </div>
+                        {% endfor %}
+                     </div>
+                     {% endif %}
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-6">
+                     <div class="form-group">
+                        <label for="form_desc">Description</label>
+                        {% if not buyer %}
+                           <textarea class="form-control" data-error="Please, leave a description." disabled id="form_desc" name="desc" placeholder="Tell me more about it!" rows="11">
+                              {{ product.description|trim }}
+                           </textarea>
+                        {% else %}
+                           <p>
+                              {{ product.description|trim }}
+                           </p>
+                        {% endif %}
+                        <div class="invalid-feedback">Please provide a description of at least 20 characters.</div>
+                     </div>
+                  </div>
+                  {% if buyer %}
+                  <div class="col-12">
+                  <label>Product images:</label>
+                     <div class="mt2 img-carousel w-90p ml-auto mr-auto">
+                        {% for image in product.images %}
+                           <div class="flex h-160 pl2 pr2">
+                              <img src="{{ base_url() }}/uploads/{{image}}" alt="image of product">
+                           </div>
+                        {% endfor %}
+                     </div>
+                  </div>
+                  {% endif%}
+               </div>
+               <div class="row ">
+                  <div class="col-md-12 dn" id="submitBtn">
+                     <input name="_METHOD" type="hidden" value="PUT"/>
+                     <input class="btn btn-success btn-send text-left" type="submit" value="Confirm Edit">
+                     <div class="fr">
+                        <button class="btn btn-outline-warning" id="cancelEditBtn" onclick="enableEdit(true)" type="button">Cancel Edit</button>
+                     </div>
+                  </div>
+               </div>
+            </form>
+            {% if not buyer %}
+               <div class="fr">
+                  <button class="mr2 btn btn-outline-warning" id="editBtn" onclick="enableEdit()" type="button">Edit Product</button>
+                  <button class="btn btn-danger" data-target="#deleteModal" data-toggle="modal" id="deleteBtn" type="button">Delete Product</button>
+               </div>
+            {% else %}
+               <div class="fr">
+                  <a class="mr2 btn btn-outline-info" href="/buy/{{product.id}}">Buy Product</a>
+               </div>
+            {% endif %}
+         </div>
+      </div>
+   {% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+  PwPop - My products
+{% endblock %}
+
+{% block content %}
+  <div class="pt3 pb3">
+    <h1 class="ml4 font-weight-bold">My Products:</h1>
+    {% if FlashMsgs != null %}
+      {% for msg in FlashMsgs %}
+        <div class="alert custom-alert alert-success alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          {{ msg|join(',') }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% if products|length > 0 %}
+      <div class="row row-eq-height w-90p ml-auto mr-auto">
+        {% for product in products %}
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt3 mb3">
+            <div class="card h-100p center">
+              <a class="text-center h-200 flex" href="/product/{{product.id}}">
+                <img class="img-item img-thumbnail" src="{{ base_url() }}/uploads/{{ product.image }}" alt="{{ product.title }}">
+              </a>
+              <div class="card-body">
+                <h4 class="font-weight-bold">{{ product.price }} €
+                </h4>
+                <span class="card-title">
+                  {{product.title}}
+                </span>
+                <p class="card-text">
+                  {{ product.description }}</p>
+                <a class="btn btn-outline-primary w-100" href="/product/{{product.id}}">View Overview</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% else %}
+        <div class="text-center">
+            <img src="{{ base_url() }}/assets/img/emptystateProducts.png" alt="No products available">
+            <h4 class="mt4 font-weight-bold">You don't have any products right now</h4>
+            <p class="mb0">You can add one in the button below!</p>
+            <a href="/upload" class="mt3 mb4 btn btn-primary">Add new product!</a>
+         </div>
+      {% endif %}
+  </div>
+{% endblock %}

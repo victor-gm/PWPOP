@@ -1,0 +1,148 @@
+html, body{
+  height: 100%;
+  min-height: 100vh;
+}
+body{
+  background-color: rgba(236,239,241,.6);
+}
+a{
+  color: #00CCCC !important;
+  cursor: pointer;
+}
+a:hover{
+  color: #00a3a3 !important;
+}
+.btn-primary{
+  border-color: #00CCCC;
+  background-color: #00CCCC;
+  color: #fff !important;
+}
+.btn-primary:hover{
+  border-color: #00a3a3;
+  background-color: #00a3a3;
+  color: #fff !important;
+}
+.btn-outline-primary{
+  border-color: #00CCCC;
+  color: #00CCCC;
+}
+
+.btn-outline-primary:hover{
+  background-color: #00CCCC;
+  border-color: #00CCCC;
+}
+
+.img-item{
+  max-height: 200px;
+  height: auto;
+  width: auto;
+  margin: 0 auto;
+}
+.card-title .item-title{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #253238;
+  font-size: 1rem;
+  line-height: 22px;
+}
+.card-text{
+  -webkit-line-clamp: 2;
+  height: 40px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  word-wrap: break-word;
+  overflow: hidden;
+  font-size: .875rem;
+  color: #607D8B;
+}
+.custom-alert{
+  width: 80%;
+  margin: 0 auto;
+}
+.custom-file-label.is-invalid{
+  border-color: #c4183c !important;
+  box-shadow: 0 5px 11.5px rgba(196,24,60,.1);
+}
+.h-160{
+  height: 160px !important;
+}
+.h-200{
+  height: 200px;
+}
+.h-100p{
+  height: 100%;
+}
+.input-group-seamless .input-group-prepend .input-group-text{
+  max-height: 40px;
+}
+label{
+  font-weight: 500;
+}
+.max-h250{
+  max-height: 250px;
+}
+.max-w250{
+  max-width: 250px;
+}
+.mb20{
+  margin-bottom: 20px;
+}
+.mt10{
+  margin-top: 10px;
+}
+.ml20{
+  margin-left: 20px;
+}
+.p50{
+  padding: 50px;
+}
+.page-container{
+  position: relative;
+  min-height: calc(100vh - 135px);
+}
+.profile-img-nav{
+  max-height: 50px;
+  width: auto;
+}
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.upload-card{
+  padding: 20px;
+}
+
+.w-90p{
+  width: 90%;
+}
+
+.slick-track{ 
+  display: flex !important; 
+} 
+.slick-slide{ 
+  display: flex !important; 
+  justify-content: center; 
+}
+.slick-next, .slick-prev{
+  width: 25px !important;
+  height: 25px !important;
+}
+.slick-next:before {
+  content: url('../img/arrow-right-circle.svg') !important;
+  color: gray;
+  cursor: pointer;
+}
+.slick-prev:before {
+  content: url('../img/arrow-left-circle.svg') !important;
+  color: gray;
+  cursor: pointer;
+}
+.max-w70p{
+  max-width: 70%;
+}
+.w240px{
+  width: 240px;
+}

@@ -1,0 +1,16 @@
+{% if loggedUser is defined %}
+  {% if loggedUser.validated == 0 %}
+      <div class="alert custom-alert alert-warning alert-dismissible fade show mb20" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        Your account hasn't been validated, to do it please go to your mail and click on the validate link,
+        if you didn't get the mail, click <a href="/sendactivationmail">here</a> to resend it.
+      </div>
+    {% endif %}
+{% endif %}
+<footer class="page-footer font-small bg-dark">
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://gitlab.com/daguilera3220/pwpop"> PWPOP LaSalle</a>
+  </div>
+</footer>

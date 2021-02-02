@@ -1,0 +1,219 @@
+<div aria-hidden="true" aria-labelledby="deleteModalTitle" class="modal fade" id="deleteModal" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalTitle">Confirm Delete</h5>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form action="{{ path_for('deleteProduct', {'id': product.id}) }}" name="delete_detail_form" enctype="multipart/form-data" method="POST">
+            <div class="modal-body">
+               <p>Are you sure you want to delete the product with the title "{{product.title}}
+                  {{product.id}}"?</p>
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-outline-light" data-dismiss="modal" type="button">No, don't delete it</button>
+               <input name="_METHOD" type="hidden" value="DELETE"/>
+               <button class="btn btn-danger" type="submit">Yes, go ahead</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="deleteModalTitle" class="modal fade" id="deleteProfileModal" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalTitle">Confirm </h5>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form action="{{ path_for('deleteProfile', {'id': user.id}) }}" name="delete_detail_form" enctype="multipart/form-data" method="POST">
+            <div class="modal-body">
+               <p>Are you sure you want to delete your account?</p>
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-outline-light" data-dismiss="modal" type="button">No, don't delete it</button>
+               <input name="_METHOD" type="hidden" value="DELETE"/>
+               <button class="btn btn-danger" type="submit">Yes, go ahead</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="searchModalTitle" class="modal fade" id="searchModal" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="searchModalTitle">Search Products</h5>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form method="post" action="{{ path_for('globalSearch') }}">
+            <div class="modal-body">
+               <div class="form-group col-12">
+                  <label for="title">Title</label>
+                  <input aria-describedby="title" class="form-control" id="title" name="title" placeholder="Enter title of product..." type="text">
+               </div>
+               <div class="form-group col-12">
+                  <label for="categorySelect">Select Category</label>
+                  <select class="form-control" id="categorySelect" name="category_id">
+                     <option value="0">All Categories</option>
+                  </select>
+               </div>
+               <div class="row">
+                  <div class="form-group col-6">
+                     <label for="minPrice">Minimum Price</label>
+                     <input aria-describedby="minimumPrice" class="form-control" id="minPrice" min="0" name="min_price" placeholder="Minimum Product Price..." step="0.1" type="number">
+                  </div>
+                  <div class="form-group col-6">
+                     <label for="maxPrice">Maximum Price</label>
+                     <input aria-describedby="maximumPrice" class="form-control" id="maxPrice" name="max_price" placeholder="Maximum Product Price..." step="0.1" type="number">
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="signupModalModalTitle" class="modal fade" id="signupModal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalModalTitle">Sign Up</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% if errors is defined and errors != null %}
+         {% for error in errors %}
+            <div class="mt10 alert alert-danger custom-alert" role="alert">
+               {{ error }}
+            </div>
+         {% endfor %}
+      {% endif %}
+      <form method="post" action="{{ path_for('signUp') }}"
+        name="register_form" onsubmit="return validateUser()"
+        enctype="multipart/form-data">
+        <div class="modal-body row">
+            <div class="form-group col-12 col-sm-6">
+               <label for="signUpName">Name</label>
+               <input aria-describedby="name" class="form-control" id="signUpName" 
+                  name="name" placeholder="Enter your name" type="text" value="{{data.name}}">
+            <div class="invalid-feedback" id="nameError">Please provide a name</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="signUpUsername">Username</label>
+              <input aria-describedby="username" class="form-control" 
+                id="signUpUsername" name="username" placeholder="Enter your username" 
+                type="text" value="{{data.username}}">
+              <div class="invalid-feedback" id="usernameError">Please provide a valid username</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="signUpEmail">Email</label>
+              <input aria-describedby="email" class="form-control" id="signUpEmail" 
+                name="email" placeholder="Enter your email" type="email"  value="{{data.email}}">
+              <div class="invalid-feedback" id="emailError">Please provide a valid email</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="signUpBirthday">Birthdate</label>
+              <input aria-describedby="birthday" class="form-control da-datepicker" id="signUpBirthday" 
+                name="birthdate" placeholder="Enter your birthdate" value="{{ data.birthdate|date("d-m-Y") }}">
+              <div class="invalid-feedback" id="birthdayError">Please provide a valid birthdate</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="signUpTelephone">Phone Number</label>
+              <input class="form-control da-phoneinput" id="signUpTelephone"
+                name="phone" placeholder="Enter your phone number" type="text" value="{{data.phone}}">
+              <div class="invalid-feedback">Please provide a valid phone number</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="signPassword">Password</label>
+              <input class="form-control" 
+                id="signUpPassword" name="password" placeholder="Enter your password" 
+                type="password">
+                <div class="invalid-feedback" id="passwordError">Please provide a valid password</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="signConfirmPassword">Password</label>
+              <input class="form-control" 
+                id="signUpConfirmPassword" name="confirmPassword"
+                placeholder="Confirm your password" type="password">
+              <div class="invalid-feedback">Please be sure that both password fields match</div>
+            </div>
+            <div class="custom-file col-12 col-sm-6">
+              <label for="form_cat">Profile Picture</label>
+              <div class="relative">
+                  <label class="custom-file-label" for="form_file1">Choose a good looking picture!</label>
+                  <input class="custom-file-input" id="form_file1" name="picture" placeholder="Choose some pretty pictures!" type="file">
+                  <div class="invalid-feedback">Please upload a valid picture</div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="loginModalTitle" class="modal fade" id="loginModal" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="loginModalTitle">Login</h5>
+            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         {% if registerSuccess is defined and registerSuccess != null %}
+            <div class="mt10 alert alert-success custom-alert" role="alert">
+               {{ registerSuccess|join(',') }}
+            </div>
+         {% endif %}
+         {% if errorslogin is defined and errorslogin != null %}
+            {% for error in errorslogin %}
+               <div class="mt10 alert alert-danger custom-alert" role="alert">
+                  {{ error|join(',') }}
+               </div>
+            {% endfor %}
+         {% endif %}
+         <form method="post" action="{{ path_for('login')}}"
+               name="login_form" onsubmit="return validateLogin()"
+               enctype="multipart/form-data">
+            <div class="modal-body">
+               <div class="form-group col-6 col-sm-12">
+                  <label for="username_or_email">Username or Email</label>
+                  <input aria-describedby="username_or_email" class="form-control" 
+                     id="username_or_email" name="username_or_email" 
+                     placeholder="Enter your username or email" type="text">
+                  <div class="invalid-feedback" id="usernameError">Please provide a valid username or email</div>
+               </div>
+               <div class="form-group col-6 col-sm-12">
+                  <label for="username">Password</label>
+                  <input class="form-control" id="password" name="password" 
+                     placeholder="Enter your password" type="password">
+                  <div class="invalid-feedback" id="loginPasswordError">Please provide a valid password</div>
+               </div>
+               <div class="form-check ml20">
+                  <input type="checkbox" class="form-check-input" id="rememberMe" value=1 name="rememberme">
+                  <label class="form-check-label" for="rememberMe">Remember me</label>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
