@@ -130,31 +130,11 @@ or open your favoirte database management application for MySQL and import the `
 
 > Pro tip: This can be done in Mac with `sudo nano /etc/hosts/`
 
-## Work Distribution
-The project was divided in 12 blocks, and those were divided among the team members in the following order:
-
-* __Noel Daniel Aguilera__ made the blocks _1_, _2_, _3_, _10.1_, _10.2_.
-* __Victor Garrido__ was in charge of the blocks _4_, _5_, _6_, _7_.
-* __Luis Angel Ortega__ implemented the blocks _8_, _9_, _11_, _12_.
-
-> A big thanks to Noel Daniel Aguilera, who helped all of us in the frontend area.
-
-## Hours Worked
-A multiple quantity of hours were necessary to make this project, below is each team member estimated guess and the estimated total that were needed.
-
-* _Noel Daniel Aguilera_ - 29 hours
-* _Victor Garrido_ - 20 hours
-* _Luis Angel Ortega_ - 21 hours
-
-Making a total of __70__ hours to complete the project.
-
 ## Class Diagram
 Below is the class diagram of the data base used in this project (as 18/05/2019).
 
 ![Image](https://i.imgur.com/GqgPU65.jpg)
 
-## Why MD5?
-[MD5](https://en.wikipedia.org/wiki/MD5) (Message-Digest Algorithm 5) makes a hash to the given string, in this case the password, and returns a series of numbers that can be only interpreted by the algoritm. This has proven to be secure for small apps like this one and this algorithm also was choosen because it's among the most popular cypher algorithms between developers.
 
 ## Built With
 * [Slim](https://www.slimframework.com/) - A micro framework for PHP.
